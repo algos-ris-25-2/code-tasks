@@ -27,7 +27,7 @@ class GcdGenerator:
             23,
         )
         """Набор простых чисел для генерации значений"""
-        self.__values: list[int] = [1, 1, 1]
+        self.__values: list[dict] = [{}, {}, {}]
         """Сгенерированные значения, общие множители (индекс COMMON_FACTORS),
         множители исключительно для a_value (индекс A_ONLY_FACTORS),
         множители исключительно для b_value (индекс B_ONLY_FACTORS)"""
@@ -36,32 +36,40 @@ class GcdGenerator:
     @property
     def gcd_value(self) -> int:
         """Возвращает значение НОД для a_value и b_value"""
-        pass
+        ans = 1
+        for prime, power in self.__values[COMMON_FACTORS].items():
+            ans *= prime ** power
+
+        return ans
+        
 
     @property
     def a_value(self) -> int:
         """Возвращает число, полученное в результате перемножения простых чисел,
         возведенных в случайную степень. Число имеет как общие, так и различные
         множители с числом b_value"""
-        count = random.randint(1, len(self.__primes))
-        for i in count:
-            prime = random.choice(self.__primes)
-            power = random.randint(1, 5)
-        
+        ans = self.gcd_value
+        for prime, power in self.__values[A_ONLY_FACTORS].items():
+            ans *= prime ** power
 
-        pass
+        return ans
+            
 
     @property
     def b_value(self) -> int:
         """Возвращает число, полученное в результате перемножения простых чисел,
         возведенных в случайную степень. Число имеет как общие, так и различные
         множители с числом a_value"""
-        pass
+        ans = self.gcd_value
+        for prime, power in self.__values[B_ONLY_FACTORS].items():
+            ans *= prime ** power
+
+        return ans
 
     @property
     def lcm_value(self) -> int:
         """Возвращает значение НОК для a_value и b_value"""
-        pass
+        return self.a_value * self.b_value // self.gcd_value
 
     @property
     def max_factor_cnt(self) -> int:
@@ -77,7 +85,39 @@ class GcdGenerator:
         умолчанию 5.
         :return: None
         """
-        pass
+        # я немного не понимаю почему в функции задано factor_cnt почему
+        # мы не рандомно берем количество простых чисел ну ладно
+        factor_cnt = min(factor_cnt, self.max_factor_cnt)
+        # выбираем количество простых чисел из primes
+        prime_list = random.sample(self.__primes, factor_cnt)
+        ans = {}
+        for i in range(factor_cnt):
+            power = random.randint(1, max(1, max_pow))
+            ans[prime_list[i]] = power
+
+        self.__values[COMMON_FACTORS] = ans
+
+        primes_list_a = [x for x in self.__primes if x not in prime_list]
+        count_a = random.randint(0, len(primes_list_a))
+        primes_list_a = random.sample(primes_list_a, count_a)
+        ans_a = {}
+        for i in range(count_a):
+            power = random.randint(1, max(1, max_pow))
+            ans_a[primes_list_a[i]] = power
+
+        self.__values[A_ONLY_FACTORS] = ans_a
+
+        primes_list_b = [x for x in self.__primes if x not in prime_list and x not in primes_list_a]
+        count_b = random.randint(0, len(primes_list_b))
+        primes_list_b = random.sample(primes_list_b, count_b)
+        ans_b = {}
+        for i in range(count_b):
+            power = random.randint(1, max(1, max_pow))
+            ans_b[primes_list_b[i]] = power
+
+        self.__values[B_ONLY_FACTORS] = ans_b
+
+        return self.__values
 
 
 if __name__ == "__main__":
@@ -88,3 +128,4 @@ if __name__ == "__main__":
     print("Число b = %d" % generator.b_value)
     print("НОД(a, b) = %d" % generator.gcd_value)
     print("НОК(a, b) = %d" % generator.lcm_value)
+    # print(generator.generate_values())

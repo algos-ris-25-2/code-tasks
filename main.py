@@ -26,10 +26,8 @@ def gcd_iterative_slow(a: int, b: int) -> int:
     """
 
     while a and b:
-         
         if a > b:
             a -= b
-
         else:
             b -= a
 
