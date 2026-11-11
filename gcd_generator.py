@@ -38,10 +38,9 @@ class GcdGenerator:
         """Возвращает значение НОД для a_value и b_value"""
         ans = 1
         for prime, power in self.__values[COMMON_FACTORS].items():
-            ans *= prime ** power
+            ans *= prime**power
 
         return ans
-        
 
     @property
     def a_value(self) -> int:
@@ -50,10 +49,9 @@ class GcdGenerator:
         множители с числом b_value"""
         ans = self.gcd_value
         for prime, power in self.__values[A_ONLY_FACTORS].items():
-            ans *= prime ** power
+            ans *= prime**power
 
         return ans
-            
 
     @property
     def b_value(self) -> int:
@@ -62,7 +60,7 @@ class GcdGenerator:
         множители с числом a_value"""
         ans = self.gcd_value
         for prime, power in self.__values[B_ONLY_FACTORS].items():
-            ans *= prime ** power
+            ans *= prime**power
 
         return ans
 
@@ -107,7 +105,9 @@ class GcdGenerator:
 
         self.__values[A_ONLY_FACTORS] = ans_a
 
-        primes_list_b = [x for x in self.__primes if x not in prime_list and x not in primes_list_a]
+        primes_list_b = [
+            x for x in self.__primes if x not in prime_list and x not in primes_list_a
+        ]
         count_b = random.randint(0, len(primes_list_b))
         primes_list_b = random.sample(primes_list_b, count_b)
         ans_b = {}

@@ -11,9 +11,8 @@ def gcd_recursive(a: int, b: int) -> int:
     """
     if b == 0:
         return a
-    
-    return gcd_recursive(b, a % b)
 
+    return gcd_recursive(b, a % b)
 
 
 def gcd_iterative_slow(a: int, b: int) -> int:
@@ -33,7 +32,7 @@ def gcd_iterative_slow(a: int, b: int) -> int:
 
     if b == 0:
         return a
-                
+
     return b
 
 
@@ -47,7 +46,7 @@ def gcd_iterative_fast(a: int, b: int) -> int:
     """
     while b:
         a, b = b, a % b
-    
+
     return a
 
 
