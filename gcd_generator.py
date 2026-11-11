@@ -43,6 +43,12 @@ class GcdGenerator:
         """Возвращает число, полученное в результате перемножения простых чисел,
         возведенных в случайную степень. Число имеет как общие, так и различные
         множители с числом b_value"""
+        count = random.randint(1, len(self.__primes))
+        for i in count:
+            prime = random.choice(self.__primes)
+            power = random.randint(1, 5)
+        
+
         pass
 
     @property
