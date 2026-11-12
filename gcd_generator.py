@@ -86,7 +86,10 @@ class GcdGenerator:
         # я немного не понимаю почему в функции задано factor_cnt почему
         # мы не рандомно берем количество простых чисел ну ладно
         factor_cnt = min(factor_cnt, self.max_factor_cnt)
+        # я бы сюда поставил max_pow = max(1, max_pow)
         # выбираем количество простых чисел из primes
+        # factor_cnt: Количество простых чисел, используемых для генерации - разве это  
+        # не означает, что это ограничение для всех видов делителей, не только для COMMON_FACTORS
         prime_list = random.sample(self.__primes, factor_cnt)
         ans = {}
         for i in range(factor_cnt):
