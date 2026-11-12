@@ -75,6 +75,13 @@ class GcdGenerator:
         для генерации чисел"""
         return len(self.__primes)
 
+    def set_factors(self, prime_list: dict, factor_cnt: int, max_pow: int) -> dict:
+        ans = {}
+        for i in range(factor_cnt):
+            power = random.randint(1, max_pow)
+            ans[prime_list[i]] = power
+        return ans
+
     def generate_values(self, factor_cnt: int = 5, max_pow: int = 5) -> None:
         """Процедура генерирует значения a_value, b_value, gcd_value и lcm_value.
         :param factor_cnt: Количество простых чисел, используемых для генерации,
@@ -86,39 +93,29 @@ class GcdGenerator:
         # я немного не понимаю почему в функции задано factor_cnt почему
         # мы не рандомно берем количество простых чисел ну ладно
         factor_cnt = min(factor_cnt, self.max_factor_cnt)
-        # я бы сюда поставил max_pow = max(1, max_pow)
+        max_pow = max(1, max_pow)
         # выбираем количество простых чисел из primes
         # factor_cnt: Количество простых чисел, используемых для генерации - разве это  
         # не означает, что это ограничение для всех видов делителей, не только для COMMON_FACTORS
-        prime_list = random.sample(self.__primes, factor_cnt)
-        ans = {}
-        for i in range(factor_cnt):
-            power = random.randint(1, max(1, max_pow))
-            ans[prime_list[i]] = power
 
-        self.__values[COMMON_FACTORS] = ans
+
+
+        prime_list = random.sample(self.__primes, factor_cnt)
+        self.__values[COMMON_FACTORS] = self.set_factors(prime_list, factor_cnt, max_pow)
 
         primes_list_a = [x for x in self.__primes if x not in prime_list]
         count_a = random.randint(0, len(primes_list_a))
         primes_list_a = random.sample(primes_list_a, count_a)
-        ans_a = {}
-        for i in range(count_a):
-            power = random.randint(1, max(1, max_pow))
-            ans_a[primes_list_a[i]] = power
 
-        self.__values[A_ONLY_FACTORS] = ans_a
+        self.__values[A_ONLY_FACTORS] = self.set_factors(primes_list_a, count_a, max_pow)
 
         primes_list_b = [
             x for x in self.__primes if x not in prime_list and x not in primes_list_a
         ]
         count_b = random.randint(0, len(primes_list_b))
         primes_list_b = random.sample(primes_list_b, count_b)
-        ans_b = {}
-        for i in range(count_b):
-            power = random.randint(1, max(1, max_pow))
-            ans_b[primes_list_b[i]] = power
-
-        self.__values[B_ONLY_FACTORS] = ans_b
+        
+        self.__values[B_ONLY_FACTORS] = self.set_factors(primes_list_b, count_b, max_pow)
 
         return self.__values
 
