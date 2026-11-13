@@ -9,7 +9,7 @@ def gcd_recursive(a: int, b: int) -> int:
     :param b: целое число b
     :return: значение наибольшего общего делителя
     """
-
+    a,b=abs(a),abs(b)
     if b == 0:
         return a
     return gcd_recursive(b, a % b)
@@ -23,6 +23,9 @@ def gcd_iterative_slow(a: int, b: int) -> int:
     :param b: целое число b
     :return: значение наибольшего общего делителя
     """
+    a,b=abs(a),abs(b)
+    if a==0:
+        return b
     while b != 0:
         if a < b:
             a, b = b, a
@@ -38,7 +41,7 @@ def gcd_iterative_fast(a: int, b: int) -> int:
     :param b: целое число b
     :return: значение наибольшего общего делителя
     """
-
+    a,b=abs(a),abs(b)
     while b != 0:
         a, b = b, a % b
     return a
@@ -52,12 +55,13 @@ def lcm(a: int, b: int) -> int:
     :return: значение наименьшего общего кратного
     """
 
-    return a * b / gcd_iterative_fast(a, b)
+    return a * b // gcd_iterative_fast(a, b)
 
 
 def main():
     a = 1005002
     b = 1354
+
     print(f"Вычисление НОД чисел {a} и {b} рекурсивно:")
     start_time = time.time()
     print(gcd_recursive(a, b))
