@@ -106,7 +106,7 @@ class GcdGenerator:
 
         self.__values[A_ONLY_FACTORS] = self.set_factors(primes_list_a, cnt_a, max_pow)
 
-        factor_cnt_b = factor_cnt - factor_cnt_a  # осталось для B
+        factor_cnt_b = factor_cnt_a - cnt_a  # осталось для B
         # список доступных делителей для B
         primes_list_b = [
             x for x in self.__primes if x not in prime_list and x not in primes_list_a
