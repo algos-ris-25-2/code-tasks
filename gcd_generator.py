@@ -90,33 +90,30 @@ class GcdGenerator:
         умолчанию 5.
         :return: None
         """
-        # я немного не понимаю почему в функции задано factor_cnt почему
-        # мы не рандомно берем количество простых чисел ну ладно
+
         factor_cnt = min(factor_cnt, self.max_factor_cnt)
         max_pow = max(1, max_pow)
         # выбираем количество простых чисел из primes
 
-        factor_cnt_common = random.randint(0, factor_cnt) # это сколько из доступных мы возьмем для общих
-        prime_list = random.sample(self.__primes, factor_cnt_common) # составление списка общих делителей
-        self.__values[COMMON_FACTORS] = self.set_factors(prime_list, factor_cnt_common, max_pow) # заполняеяем общие делители степенями
+        cnt_c = random.randint(0, factor_cnt)  # возьмем для общих
+        prime_list = random.sample(self.__primes, cnt_c)  # общих делителей
+        self.__values[COMMON_FACTORS] = self.set_factors(prime_list, cnt_c, max_pow)
 
-        factor_cnt_a = factor_cnt - factor_cnt_common # это сколько из доступных осталось для A и B
-        primes_list_a = [x for x in self.__primes if x not in prime_list] # список доступных делителей для A и B
-        count_a = random.randint(0, min(len(primes_list_a), factor_cnt_a)) # сколько возьмем для A, чтобы не переполнения
-        primes_list_a = random.sample(primes_list_a, count_a) # список делителей для A
+        factor_cnt_a = factor_cnt - cnt_c  # осталось для A и B
+        primes_list_a = [x for x in self.__primes if x not in prime_list]
+        cnt_a = random.randint(0, min(len(primes_list_a), factor_cnt_a))
+        primes_list_a = random.sample(primes_list_a, cnt_a)  # список делителей для A
 
-        self.__values[A_ONLY_FACTORS] = self.set_factors(primes_list_a, count_a, max_pow) # заполняеяем A делители степенями
+        self.__values[A_ONLY_FACTORS] = self.set_factors(primes_list_a, cnt_a, max_pow)
 
-
-        factor_cnt_b = factor_cnt - factor_cnt_a  # сколько из доступных осталось для B
+        factor_cnt_b = factor_cnt - factor_cnt_a  # осталось для B
         # список доступных делителей для B
         primes_list_b = [
             x for x in self.__primes if x not in prime_list and x not in primes_list_a
         ]
-        count_b = min(len(primes_list_b), factor_cnt_b) # нет рандома, т.к. берем все что остались, если позваляют доступные делители
-        primes_list_b = random.sample(primes_list_b, count_b) # список делителей для B
-        
-        self.__values[B_ONLY_FACTORS] = self.set_factors(primes_list_b, count_b, max_pow) # заполняеяем B делители степенями
+        cnt_b = min(len(primes_list_b), factor_cnt_b)
+        primes_list_b = random.sample(primes_list_b, cnt_b)
+        self.__values[B_ONLY_FACTORS] = self.set_factors(primes_list_b, cnt_b, max_pow)
 
         return self.__values
 
