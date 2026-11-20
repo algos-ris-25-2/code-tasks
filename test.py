@@ -17,6 +17,12 @@ class TestTridiagonalDeterminant(unittest.TestCase):
         параметр пустого списка"""
         self.assertRaises(Exception, get_tridiagonal_determinant, [])
 
+    def test_not_int_in_matrix(self):
+        """Проверяет, что функция выбрасывает исключение при передаче в
+        парамтре матрицу, в которой находится не целое число"""
+        matrix = [[1, 2], [3, '']]
+        self.assertRaises(Exception, get_tridiagonal_determinant, matrix)
+
     def test_not_square_rectangle(self):
         """Проверяет, что функция выбрасывает исключение при передаче в
         параметр прямоугольной матрицы"""
