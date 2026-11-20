@@ -72,7 +72,6 @@ def main():
         print(row)
 
     print(f"Определитель матрицы равен {get_tridiagonal_determinant(matrix)}")
-    print(validate_tridiagonal_matrix([[1, 2, 0, 0], [3, 1, 2, 0], [0, 3, 1, 2]]))
 
 
 if __name__ == "__main__":
