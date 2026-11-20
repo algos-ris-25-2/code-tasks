@@ -37,12 +37,12 @@ def validate_tridiagonal_matrix(matrix: list[list[int]]) -> list[int]:
                   raise ValueError('a')
             
             elif i == j + 1:
-                if i + 1 < order_matrix and matrix[i][j] != b:
-                  raise ValueError('b')
+                if i + 1 < order_matrix and matrix[i][j] != c:
+                  raise ValueError('c')
 
             elif i + 1 == j:
-                if j + 1 < order_matrix and matrix[i][j] != c:
-                  raise ValueError('c')
+                if j + 1 < order_matrix and matrix[i][j] != b:
+                  raise ValueError('b')
 
             else:
                 if matrix[i][j] != 0:
