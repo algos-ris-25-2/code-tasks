@@ -21,16 +21,14 @@ def _gray_code(n: int) -> list[list[int]]:
     result = [[0] + item for item in prev_gray_code] + [[1] + item for item in reversed(prev_gray_code)]
     return result 
 
-def validation(n) -> bool:
+def validation(n) -> None:
     """Проверяет, что входные данные являются целым числом, которое имеет значение не менее 1 и не является логическим значением.
-    
+
     :param n: входные данные
     :raises Exception: если n не является таким числом
-    :return: True, если валидация пройдена
     """
     if not isinstance(n, int) or isinstance(n, bool) or n < 1:
         raise Exception("n должно являться целым числом, значение которого не менее 1")
-    return True
     
 
 def main():
