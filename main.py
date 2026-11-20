@@ -1,9 +1,9 @@
-def recursive_determinant(a: int, b: int, c: int, n: int) -> int:
-    if n == 0:
+def recursive_determinant(a: int, b: int, c: int, order_matrix: int) -> int:
+    if order_matrix == 0:
         return 1
-    if n == 1:
+    if order_matrix == 1:
         return a
-    return a * recursive_determinant(a, b, c, n - 1) - b * c * recursive_determinant(a, b, c, n - 2)
+    return a * recursive_determinant(a, b, c, order_matrix - 1) - b * c * recursive_determinant(a, b, c, order_matrix - 2)
 
 def validate_tridiagonal_matrix(matrix: list[list[int]]) -> list[int]:    
     if not isinstance(matrix, list):
@@ -25,11 +25,30 @@ def validate_tridiagonal_matrix(matrix: list[list[int]]) -> list[int]:
     a = matrix[0][0]
 
     if order_matrix == 1:
-        return [a]
+        return [a, 0, 0, 1]
 
     b = matrix[0][1]
     c = matrix[1][0]
-    for 
+
+    for i in range(order_matrix):
+        for j in range(order_matrix):
+            if i == j:
+                if matrix[i][j] != a:
+                  raise ValueError('a')
+            
+            elif i == j + 1:
+                if i + 1 < order_matrix and matrix[i][j] != b:
+                  raise ValueError('b')
+
+            elif i + 1 == j:
+                if j + 1 < order_matrix and matrix[i][j] != c:
+                  raise ValueError('c')
+
+            else:
+                if matrix[i][j] != 0:
+                    raise ValueError
+    
+    return [a, b, c, order_matrix]
 
 
 def get_tridiagonal_determinant(matrix: list[list[int]]) -> int:
@@ -41,15 +60,8 @@ def get_tridiagonal_determinant(matrix: list[list[int]]) -> int:
     :raises Exception: если matrix не является такой матрицей
     :return: значение определителя
     """
-    validate_tridiagonal_matrix(matrix)
-
-    order_matrix = len(matrix)
-    if order_matrix == 1:
-        return matrix[0][0]
     
-    a = matrix[0][0]
-    b = matrix[0][1]
-    c = matrix[1][0]
+    a, b, c, order_matrix = validate_tridiagonal_matrix(matrix)
     
     return recursive_determinant(a, b, c, order_matrix)
 
