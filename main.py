@@ -33,7 +33,6 @@ def validate_tridiagonal_matrix(matrix: list[list[int]]) -> list[int]:
                 )
 
     a = matrix[0][0]
-    order_matrix = len(matrix)
 
     if order_matrix == 1:
         return [a, 0, 0, 1]
