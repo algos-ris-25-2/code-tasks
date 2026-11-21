@@ -33,9 +33,9 @@ def validation(n) -> None:
     :raises Exception: если n не является таким числом
     """
     if not isinstance(n, int) or isinstance(n, bool):
-        raise TypeError("n должно являться целым числом")
+        raise Exception("n должно являться целым числом")
     if n < 1:
-        raise ValueError("Значение n должны быть не менее 1")
+        raise Exception("Значение n должны быть не менее 1")
 
 
 def main():
