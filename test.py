@@ -119,5 +119,6 @@ class TestGrayCode(unittest.TestCase):
             unique_codes = {tuple(item) for item in codes}
             self.assertEqual(len(unique_codes), len(codes))
 
+
 if __name__ == "__main__":
     unittest.main()
