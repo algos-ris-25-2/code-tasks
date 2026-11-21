@@ -30,7 +30,7 @@ def validation(n) -> None:
     которое имеет значение не менее 1 и не является логическим значением.
 
     :param n: входные данные
-    :raises Exception: если n не является таким числом
+    :raises Exception: если n не является целым числом или меньше 1
     """
     if not isinstance(n, int) or isinstance(n, bool):
         raise Exception("n должно являться целым числом")
