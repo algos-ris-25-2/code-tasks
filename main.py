@@ -7,20 +7,20 @@ def recursive_determinant(a: int, b: int, c: int, order_matrix: int) -> int:
 
 def validate_tridiagonal_matrix(matrix: list[list[int]]) -> list[int]:    
     if not isinstance(matrix, list):
-        raise TypeError
+        raise TypeError("Ошибка: ожидалась матрица list[list[int]], получен объект другого типа")
 
     order_matrix = len(matrix)
 
     for row in matrix:
         if not isinstance(row, list):
-            raise TypeError
+            raise TypeError("Ошибка: ожидалась матрица list[list[int]], в матрице не все строки списки")
 
         if order_matrix != len(row):
-            raise ValueError
+            raise ValueError("Ошибка: ожидалась квадратная матрица")
 
         for el in row:
             if not isinstance(el, int):
-                raise TypeError
+                raise TypeError("Ошибка: ожидалась матрица содержащая только целые числа типа int")
 
     a = matrix[0][0]
 
@@ -34,19 +34,19 @@ def validate_tridiagonal_matrix(matrix: list[list[int]]) -> list[int]:
         for j in range(order_matrix):
             if i == j:
                 if matrix[i][j] != a:
-                  raise ValueError('a')
+                  raise ValueError("Ошибка: матрица не является трёхдиагональной лентой, элементы главной диагонали не одинаковы")
             
             elif i + 1 == j:
                 if matrix[i][j] != b:
-                  raise ValueError('b')
+                  raise ValueError("Ошибка: матрица не является трёхдиагональной лентой, элементы над главной диагонали не одинаковы")
             
             elif i == j + 1:
                 if matrix[i][j] != c:
-                  raise ValueError('c')
+                  raise ValueError("Ошибка: матрица не является трёхдиагональной лентой, элементы под главной диагонали не одинаковы")
 
             else:
                 if matrix[i][j] != 0:
-                    raise ValueError
+                    raise ValueError("Ошибка: матрица не является трёхдиагональной лентой, обнаружены ненулевые элементы вне трёх диагоналей")
     
     return [a, b, c, order_matrix]
 
