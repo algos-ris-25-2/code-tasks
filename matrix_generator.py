@@ -1,4 +1,5 @@
 from collections import namedtuple
+from random import choice
 
 Case = namedtuple("Case", ["matrix", "det"])
 
@@ -14,7 +15,26 @@ def generate_matrix_and_det(order: int) -> Case:
     :raises Exception: если order не является таким числом
     :return: Case с полями matrix и det
     """
-    pass
+    if type(order) is not int or order < 1:
+        raise ValueError("Порядок матрицы должен быть целым числом не меньше 1")
+
+    matrix = [[0] * order for _ in range(order)]
+    det = 1
+
+    for i in range(order):
+        matrix[i][i] = choice([number for number in range(-5, 6) if number != 0])
+        det *= matrix[i][i]
+
+    if order > 1:
+        for i, row_to_change in enumerate(matrix):
+            other_rows = matrix[:i] + matrix[i + 1 :]
+            row_to_add = choice(other_rows)
+            factor = choice([number for number in range(-2, 3) if number != 0])
+
+            for column in range(order):
+                row_to_change[column] += factor * row_to_add[column]
+
+    return Case(matrix=matrix, det=det)
 
 
 def main():
