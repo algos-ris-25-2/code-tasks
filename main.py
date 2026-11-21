@@ -45,7 +45,6 @@ def validate_tridiagonal_matrix(matrix: list[list[int]]) -> list[int]:
 
 
 def validate_tridiagonal_matrix_value(matrix, a, b, c, order_matrix) -> list[int]:
-
     for i in range(order_matrix):
         for j in range(order_matrix):
             if i == j:
