@@ -27,6 +27,7 @@ def get_tridiagonal_determinant(matrix: list[list[int]]) -> int:
 
     return det_curr
 
+
 def validate_tridiagonal_matrix(matrix):
     """Проверяет корректность трёхдиагональной матрицы"""
     if not isinstance(matrix, list):
@@ -75,6 +76,7 @@ def validate_tridiagonal_matrix(matrix):
                     )
             elif val != 0:
                 raise ValueError("Элементы вне трёх диагоналей должны быть равны нулю!")
+
 
 def main():
     matrix = [[2, -3, 0, 0], [5, 2, -3, 0], [0, 5, 2, -3], [0, 0, 5, 2]]
