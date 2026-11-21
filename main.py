@@ -8,7 +8,7 @@ def get_tridiagonal_determinant(matrix: list[list[int]]) -> int:
     :return: значение определителя
     """
     validate_tridiagonal_matrix(matrix)
-    
+
     n = len(matrix)
     a = matrix[0][0]
 
