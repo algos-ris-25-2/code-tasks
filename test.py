@@ -23,10 +23,24 @@ class TestTridiagonalDeterminant(unittest.TestCase):
         matrix = [[1, 2, 0, 0], [3, 1, 2, 0], [0, 3, 1, 2]]
         self.assertRaises(Exception, get_tridiagonal_determinant, matrix)
 
-    def test_not_tridiag_replace_zero(self):
-        """Проверяет, что функция выбрасывает исключение при передаче
-        матрицы с ненулевым элементом вне трёх диагоналей"""
-        matrix = [[1, 2, 0, 7], [3, 1, 2, 0], [0, 3, 1, 2], [0, 0, 3, 1]]
+    def test_not_tridiag_replace_zero_on_row(self):
+        matrix = [[1, 2, 0, 6], [3, 1, 2, 0], [0, 3, 1, 2], [0, 0, 3, 1]]
+        self.assertRaises(Exception, get_tridiagonal_determinant, matrix)
+
+    def test_not_tridiag_replace_zero_on_column(self):
+        matrix = [[1, 2, 0, 0], [3, 1, 2, 0], [0, 3, 1, 2], [7, 0, 3, 1]]
+        self.assertRaises(Exception, get_tridiagonal_determinant, matrix)
+
+    def test_no_a_diagonal(self):
+        matrix = [[1, 2, 0, 0], [3, 1, 2, 0], [0, 3, 2, 2], [0, 0, 3, 1]]
+        self.assertRaises(Exception, get_tridiagonal_determinant, matrix)
+
+    def test_no_b_diagonal(self):
+        matrix = [[1, 2, 0, 0], [3, 1, 9, 0], [0, 3, 1, 2], [0, 0, 3, 1]]
+        self.assertRaises(Exception, get_tridiagonal_determinant, matrix)
+
+    def test_no_c_diagonal(self):
+        matrix = [[1, 2, 0, 0], [3, 1, 2, 0], [0, 8, 1, 2], [0, 0, 3, 1]]
         self.assertRaises(Exception, get_tridiagonal_determinant, matrix)
 
     def test_first_order(self):
@@ -48,6 +62,10 @@ class TestTridiagonalDeterminant(unittest.TestCase):
         """Проверяет расчет определителя для матрицы порядка 4"""
         matrix = [[2, -3, 0, 0], [5, 2, -3, 0], [0, 5, 2, -3], [0, 0, 5, 2]]
         self.assertEqual(get_tridiagonal_determinant(matrix), 421)
+
+    def test_not_equal_rows(self):
+        matrix = [[1, 2, 0, 0], [3, 1, 2], [0, 3, 1, 2], [0, 0, 3, 1]]
+        self.assertRaises(Exception, get_tridiagonal_determinant, matrix)
 
 
 if __name__ == "__main__":
