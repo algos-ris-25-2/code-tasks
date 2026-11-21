@@ -77,6 +77,9 @@ class TestGrayCode(unittest.TestCase):
         for _ in range(5):
             n = random.randint(4, 20)
             codes = GrayCode(n).generate_gray()
+            # codes - генератор строк. Каждая строка разбивается
+            # посимвольно, каждый символ (bit) преобразовывается
+            # в тип int и добавляется в список
             expected = [[int(bit) for bit in item] for item in codes]
             self.assertEqual(gray_code(n), expected)
 
