@@ -7,7 +7,59 @@ def get_tridiagonal_determinant(matrix: list[list[int]]) -> int:
     :raises Exception: если matrix не является такой матрицей
     :return: значение определителя
     """
-    pass
+    validate_triagonal_matrix(matrix)
+
+    n = len(matrix)
+    if n == 1:
+        return matrix[0][0]
+
+    det_prev2 = matrix[0][0]
+    det_prev1 = matrix[0][0] * matrix[0][0] - matrix[0][1] * matrix[1][0]
+
+    for i in range(2, n):
+        elem_left = matrix[i][i - 1]
+        elem_diag = matrix[i][i]
+        elem_up = matrix[i - 1][i]
+
+        det_curr = elem_diag * det_prev1 - elem_up * elem_left * det_prev2
+
+        det_prev2 = det_prev1
+        det_prev1 = det_curr
+
+    return det_prev1
+
+
+def validate_triagonal_matrix(matrix):
+    """Проверяет корректность трёхдиагональной матрицы.
+
+    :param matrix: любой тип данных
+    :raises Exception: если matrix не является такой матрицей
+    :return: True, если тип данных корректный
+    """
+
+    if not isinstance(matrix, list):
+        raise TypeError("Полученные данные не являются матрицей")
+
+    if len(matrix) == 0:
+        raise ValueError("Матрица пустая.")
+
+    n = len(matrix)
+
+    for i, row in enumerate(matrix):
+        if not isinstance(row, list):
+            raise TypeError("Полученные данные не являются матрицей")
+
+        if len(row) != n:
+            raise ValueError("Матрица не является кввадратной")
+
+        for j, val in enumerate(row):
+            if isinstance(val, bool) or not isinstance(val, (int, float)):
+                raise TypeError(f"Элемент [{i}][{j}] не является числом")
+
+            if abs(i - j) > 1 and val != 0:
+                raise ValueError("Матрица не является трехдиагональной")
+
+    return True
 
 
 def main():
