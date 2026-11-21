@@ -7,6 +7,28 @@ def get_tridiagonal_determinant(matrix: list[list[int]]) -> int:
     :raises Exception: если matrix не является такой матрицей
     :return: значение определителя
     """
+    validate_tridiagonal_matrix(matrix)
+    
+    n = len(matrix)
+    a = matrix[0][0]
+
+    if n == 1:
+        return a
+
+    b = matrix[0][1]
+    c = matrix[1][0]
+
+    bc = b * c
+    det_prev = 1
+    det_curr = a
+
+    for i in range(2, n + 1):
+        det_prev, det_curr = det_curr, a * det_curr - bc * det_prev
+
+    return det_curr
+
+def validate_tridiagonal_matrix(matrix):
+    """Проверяет корректность трёхдиагональной матрицы"""
     if not isinstance(matrix, list):
         raise TypeError("Матрица должна быть списком из списков!")
 
@@ -53,19 +75,6 @@ def get_tridiagonal_determinant(matrix: list[list[int]]) -> int:
                     )
             elif val != 0:
                 raise ValueError("Элементы вне трёх диагоналей должны быть равны нулю!")
-
-    if n == 1:
-        return a
-
-    bc = b * c
-    det_prev = 1
-    det_curr = a
-
-    for i in range(2, n + 1):
-        det_prev, det_curr = det_curr, a * det_curr - bc * det_prev
-
-    return det_curr
-
 
 def main():
     matrix = [[2, -3, 0, 0], [5, 2, -3, 0], [0, 5, 2, -3], [0, 0, 5, 2]]
