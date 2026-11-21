@@ -49,6 +49,46 @@ class TestTridiagonalDeterminant(unittest.TestCase):
         matrix = [[2, -3, 0, 0], [5, 2, -3, 0], [0, 5, 2, -3], [0, 0, 5, 2]]
         self.assertEqual(get_tridiagonal_determinant(matrix), 421)
 
+    def test_row_is_not_a_list(self):
+        """
+        Проверяет, что выбрасывает исключение,если строка
+        матрицы не list
+        """
+        matrix = [[1, 2], "ab"]
+        self.assertRaises(Exception, get_tridiagonal_determinant, matrix)
+
+    def test_non_integer_element(self):
+        """
+        Проверяет, что выбрасывает исключение, если элемент матрицы
+        не целое число (int).
+        """
+        matrix = [[1.0, 2], [3, 1]]
+        self.assertRaises(Exception, get_tridiagonal_determinant, matrix)
+
+    def test_non_constant_main_diagonal(self):
+        """
+        Проверяет, что выбрасывает исключение, если на главной диагонали
+        разные значения.
+        """
+        matrix = [[1, 0], [0, 2]]
+        self.assertRaises(Exception, get_tridiagonal_determinant, matrix)
+
+    def test_non_constant_updiagonal(self):
+        """
+        Проверяет, что выбрасывает исключение, если на наддиагонали
+        разные значения.
+        """
+        matrix = [[1, 2, 0], [3, 1, 5], [0, 3, 1]]
+        self.assertRaises(Exception, get_tridiagonal_determinant, matrix)
+
+    def test_non_constant_subdiagonal(self):
+        """
+        Проверяет, что выбрасывает исключение, если на поддиагонали
+        разные значения.
+        """
+        matrix = [[1, 2, 0], [3, 1, 2], [0, 7, 1]]
+        self.assertRaises(Exception, get_tridiagonal_determinant, matrix)
+
 
 if __name__ == "__main__":
     unittest.main()
