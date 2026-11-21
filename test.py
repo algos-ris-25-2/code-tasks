@@ -51,6 +51,35 @@ class TestDeterminant(unittest.TestCase):
         matrix = [[3, -3, -5, 8], [-3, 2, 4, -6], [2, -5, -7, 5], [-4, 3, 5, -6]]
         self.assertEqual(calculate_determinant(matrix), 18)
 
+    def test_is_list(self):
+        """Проверяет выброс исключения, если матрица не является списком"""
+        matrix = 12345
+        self.assertRaises(Exception, calculate_determinant, matrix)
+
+    def test_unchanged_matrix(self):
+        """Проверяет, что матрица не меняется после вычисления определителя"""
+        matrix = [[1, 2], [3, 4]]
+        matrix_copy = [[1, 2], [3, 4]]
+
+        calculate_determinant(matrix)
+
+        self.assertEqual(matrix, matrix_copy)
+
+    def test_float_element(self):
+        """Проверяет выброс исключения, если матрица содержит нецелочисленный элемент"""
+        matrix = [[1, 2], [3.5, 4]]
+        self.assertRaises(Exception, calculate_determinant, matrix)
+
+    def test_string_element(self):
+        """Проверяет выброс исключения, если матрица содержит строку"""
+        matrix = [[1, 2], ["a", 4]]
+        self.assertRaises(Exception, calculate_determinant, matrix)
+
+    def test_bool_element(self):
+        """Проверяет выброс исключения, если матрица содержит логическое значение"""
+        matrix = [[1, 2], [True, 4]]
+        self.assertRaises(Exception, calculate_determinant, matrix)
+
     def test_generator(self):
         """Проверяет генератор матриц с известным определителем"""
         require_generator(self)
