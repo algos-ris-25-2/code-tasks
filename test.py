@@ -27,6 +27,11 @@ class TestTridiagonalDeterminant(unittest.TestCase):
         параметр пустого списка"""
         self.assertRaises(Exception, get_tridiagonal_determinant, [])
 
+    def test_row_not_list(self):
+        """Проверяет, что функция выбрасывает исключение при передаче в
+        параметр матрицы, в которой одна из строк не является списком"""
+        self.assertRaises(Exception, get_tridiagonal_determinant, [[1, 2], ''])
+
     def test_not_int_in_matrix(self):
         """Проверяет, что функция выбрасывает исключение при передаче в
         параметре матрицу, в которой находится не целое число"""
@@ -43,6 +48,24 @@ class TestTridiagonalDeterminant(unittest.TestCase):
         """Проверяет, что функция выбрасывает исключение при передаче
         матрицы с ненулевым элементом вне трёх диагоналей"""
         matrix = [[1, 2, 0, 7], [3, 1, 2, 0], [0, 3, 1, 2], [0, 0, 3, 1]]
+        self.assertRaises(Exception, get_tridiagonal_determinant, matrix)
+
+    def test_not_tridiag_replace_a(self):
+        """Проверяет, что функция выбрасывает исключение при передаче
+        матрицы с разными элементами на главной диагонали"""
+        matrix = [[1, 2, 0, 0], [3, 8, 2, 0], [0, 3, 1, 2], [0, 0, 3, 1]]
+        self.assertRaises(Exception, get_tridiagonal_determinant, matrix)
+
+    def test_not_tridiag_replace_c(self):
+        """Проверяет, что функция выбрасывает исключение при передаче
+        матрицы с разными элементами на диагонали под главной диагональю"""
+        matrix = [[1, 2, 0, 0], [3, 1, 2, 0], [0, 9, 1, 2], [0, 0, 3, 1]]
+        self.assertRaises(Exception, get_tridiagonal_determinant, matrix)
+
+    def test_not_tridiag_replace_b(self):
+        """Проверяет, что функция выбрасывает исключение при передаче
+        матрицы с разными элементами на диагонали над главной диагональю"""
+        matrix = [[1, 2, 0, 0], [3, 1, 2, 0], [0, 3, 1, 6], [0, 0, 3, 1]]
         self.assertRaises(Exception, get_tridiagonal_determinant, matrix)
 
     def test_first_order(self):
