@@ -30,7 +30,7 @@ class TestTridiagonalDeterminant(unittest.TestCase):
     def test_not_int_in_matrix(self):
         """Проверяет, что функция выбрасывает исключение при передаче в
         параметре матрицу, в которой находится не целое число"""
-        matrix = [[1, 2], [3, '']]
+        matrix = [[1, 2], [3, ""]]
         self.assertRaises(Exception, get_tridiagonal_determinant, matrix)
 
     def test_not_square_rectangle(self):
@@ -66,20 +66,20 @@ class TestTridiagonalDeterminant(unittest.TestCase):
         self.assertEqual(get_tridiagonal_determinant(matrix), 421)
 
     def test_tenth_order(self):
-            """Проверяет расчет определителя для матрицы порядка 10"""
-            matrix = [
-                [-8,  2,  0,  0,  0,  0,  0,  0,  0,  0],
-                [ 3, -8,  2,  0,  0,  0,  0,  0,  0,  0],
-                [ 0,  3, -8,  2,  0,  0,  0,  0,  0,  0],
-                [ 0,  0,  3, -8,  2,  0,  0,  0,  0,  0],
-                [ 0,  0,  0,  3, -8,  2,  0,  0,  0,  0],
-                [ 0,  0,  0,  0,  3, -8,  2,  0,  0,  0],
-                [ 0,  0,  0,  0,  0,  3, -8,  2,  0,  0],
-                [ 0,  0,  0,  0,  0,  0,  3, -8,  2,  0],
-                [ 0,  0,  0,  0,  0,  0,  0,  3, -8,  2],
-                [ 0,  0,  0,  0,  0,  0,  0,  0,  3, -8]
-            ]
-            self.assertEqual(get_tridiagonal_determinant(matrix), 402283936)
+        """Проверяет расчет определителя для матрицы порядка 10"""
+        matrix = [
+            [-8, 2, 0, 0, 0, 0, 0, 0, 0, 0],
+            [3, -8, 2, 0, 0, 0, 0, 0, 0, 0],
+            [0, 3, -8, 2, 0, 0, 0, 0, 0, 0],
+            [0, 0, 3, -8, 2, 0, 0, 0, 0, 0],
+            [0, 0, 0, 3, -8, 2, 0, 0, 0, 0],
+            [0, 0, 0, 0, 3, -8, 2, 0, 0, 0],
+            [0, 0, 0, 0, 0, 3, -8, 2, 0, 0],
+            [0, 0, 0, 0, 0, 0, 3, -8, 2, 0],
+            [0, 0, 0, 0, 0, 0, 0, 3, -8, 2],
+            [0, 0, 0, 0, 0, 0, 0, 0, 3, -8],
+        ]
+        self.assertEqual(get_tridiagonal_determinant(matrix), 402283936)
 
 
 if __name__ == "__main__":
