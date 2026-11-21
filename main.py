@@ -13,22 +13,15 @@ def get_tridiagonal_determinant(matrix: list[list[int]]) -> int:
     if n == 1:
         return matrix[0][0]
 
-    det_prev2 = 1
-    det_prev1 = matrix[0][0]
+    det_prev2 = matrix[0][0]
+    det_prev1 = matrix[0][0] * matrix[0][0] - matrix[0][1] * matrix[1][0]
 
-    for i in range(1, n):
+    for i in range(2, n):
         elem_left = matrix[i][i - 1]
         elem_diag = matrix[i][i]
+        elem_up = matrix[i - 1][i]
 
-        sign_left = (-1) ** (i + (i - 1))
-        minor_left = matrix[i - 1][i] * det_prev2
-        cofactor_left = sign_left * minor_left
-
-        sign_diag = (-1) ** (i + i)
-        minor_diag = det_prev1
-        cofactor_diag = sign_diag * minor_diag
-
-        det_curr = (elem_left * cofactor_left) + (elem_diag * cofactor_diag)
+        det_curr = elem_diag * det_prev1 - elem_up * elem_left * det_prev2
 
         det_prev2 = det_prev1
         det_prev1 = det_curr
@@ -37,6 +30,13 @@ def get_tridiagonal_determinant(matrix: list[list[int]]) -> int:
 
 
 def validate_triagonal_matrix(matrix):
+    """Проверяет корректность трёхдиагональной матрицы.
+
+    :param matrix: любой тип данных
+    :raises Exception: если matrix не является такой матрицей
+    :return: True, если тип данных корректный
+    """
+
     if not isinstance(matrix, list):
         raise TypeError("Полученные данные не являются матрицей")
 
