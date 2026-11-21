@@ -12,14 +12,14 @@ class TestTridiagonalDeterminant(unittest.TestCase):
         параметр значения None"""
         self.assertRaises(Exception, get_tridiagonal_determinant, None)
 
-    def test_not_matrix_text(self):
+    def test_str_param_not_list(self):
         """Проверяет, что функция выбрасывает исключение при передаче в
-        параметр значения matrix"""
+        параметр значения, которое не является list[] (передаем строку)"""
         self.assertRaises(Exception, get_tridiagonal_determinant, "matrix")
 
-    def test_not_matrix_int(self):
+    def test_int_param_not_list(self):
         """Проверяет, что функция выбрасывает исключение при передаче в
-        параметр числа 52"""
+        параметр значения, которое не является list[] (передаем число)"""
         self.assertRaises(Exception, get_tridiagonal_determinant, int(52))
 
     def test_empty_matrix(self):
@@ -27,10 +27,15 @@ class TestTridiagonalDeterminant(unittest.TestCase):
         параметр пустого списка"""
         self.assertRaises(Exception, get_tridiagonal_determinant, [])
 
+    def test_row_empty_list(self):
+        """Проверяет, что функция выбрасывает исключение при передаче в
+        параметр пустого списка (строка матрицы) в списке"""
+        self.assertRaises(Exception, get_tridiagonal_determinant, [[]])
+
     def test_row_not_list(self):
         """Проверяет, что функция выбрасывает исключение при передаче в
         параметр матрицы, в которой одна из строк не является списком"""
-        self.assertRaises(Exception, get_tridiagonal_determinant, [[1, 2], ''])
+        self.assertRaises(Exception, get_tridiagonal_determinant, [[1, 2], ""])
 
     def test_not_int_in_matrix(self):
         """Проверяет, что функция выбрасывает исключение при передаче в
