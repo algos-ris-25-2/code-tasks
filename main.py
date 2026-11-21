@@ -3,26 +3,37 @@ def recursive_determinant(a: int, b: int, c: int, order_matrix: int) -> int:
         return 1
     if order_matrix == 1:
         return a
-    return a * recursive_determinant(a, b, c, order_matrix - 1) - b * c * recursive_determinant(a, b, c, order_matrix - 2)
+    return a * recursive_determinant(
+        a, b, c, order_matrix - 1
+    ) - b * c * recursive_determinant(a, b, c, order_matrix - 2)
 
-def validate_tridiagonal_matrix(matrix: list[list[int]]) -> list[int]:    
+
+def validate_tridiagonal_matrix(matrix: list[list[int]]) -> list[int]:
     if not isinstance(matrix, list):
-        raise TypeError("Ошибка: ожидалась матрица list[list[int]], получен объект другого типа")
+        raise TypeError(
+            "Ошибка: ожидалась матрица list[list[int]], получен объект другого типа"
+        )
 
     order_matrix = len(matrix)
 
     for row in matrix:
         if not isinstance(row, list):
-            raise TypeError("Ошибка: ожидалась матрица list[list[int]], в матрице не все строки списки")
+            raise TypeError(
+                "Ошибка: ожидалась матрица list[list[int]], "
+                "в матрице не все строки списки"
+            )
 
         if order_matrix != len(row):
             raise ValueError("Ошибка: ожидалась квадратная матрица")
 
         for el in row:
             if not isinstance(el, int):
-                raise TypeError("Ошибка: ожидалась матрица содержащая только целые числа типа int")
+                raise TypeError(
+                    "Ошибка: ожидалась матрица содержащая только целые числа типа int"
+                )
 
     a = matrix[0][0]
+    order_matrix = len(matrix)
 
     if order_matrix == 1:
         return [a, 0, 0, 1]
@@ -30,24 +41,41 @@ def validate_tridiagonal_matrix(matrix: list[list[int]]) -> list[int]:
     b = matrix[0][1]
     c = matrix[1][0]
 
+    return validate_tridiagonal_matrix_value(matrix, a, b, c, order_matrix)
+
+
+def validate_tridiagonal_matrix_value(matrix, a, b, c, order_matrix) -> list[int]:
+
     for i in range(order_matrix):
         for j in range(order_matrix):
             if i == j:
                 if matrix[i][j] != a:
-                  raise ValueError("Ошибка: матрица не является трёхдиагональной лентой, элементы главной диагонали не одинаковы")
-            
+                    raise ValueError(
+                        "Ошибка: матрица не является трёхдиагональной лентой,"
+                        " элементы главной диагонали не одинаковы"
+                    )
+
             elif i + 1 == j:
                 if matrix[i][j] != b:
-                  raise ValueError("Ошибка: матрица не является трёхдиагональной лентой, элементы над главной диагональю не одинаковы")
-            
+                    raise ValueError(
+                        "Ошибка: матрица не является трёхдиагональной лентой,"
+                        " элементы над главной диагонали не одинаковы"
+                    )
+
             elif i == j + 1:
                 if matrix[i][j] != c:
-                  raise ValueError("Ошибка: матрица не является трёхдиагональной лентой, элементы под главной диагональю не одинаковы")
+                    raise ValueError(
+                        "Ошибка: матрица не является трёхдиагональной лентой,"
+                        " элементы под главной диагонали не одинаковы"
+                    )
 
             else:
                 if matrix[i][j] != 0:
-                    raise ValueError("Ошибка: матрица не является трёхдиагональной лентой, обнаружены ненулевые элементы вне трёх диагоналей")
-    
+                    raise ValueError(
+                        "Ошибка: матрица не является трёхдиагональной лентой,"
+                        " обнаружены ненулевые элементы вне трёх диагоналей"
+                    )
+
     return [a, b, c, order_matrix]
 
 
@@ -60,10 +88,11 @@ def get_tridiagonal_determinant(matrix: list[list[int]]) -> int:
     :raises Exception: если matrix не является такой матрицей
     :return: значение определителя
     """
-    
+
     a, b, c, order_matrix = validate_tridiagonal_matrix(matrix)
-    
+
     return recursive_determinant(a, b, c, order_matrix)
+
 
 def main():
     matrix = [[2, -3, 0, 0], [5, 2, -3, 0], [0, 5, 2, -3], [0, 0, 5, 2]]
